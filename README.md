@@ -1,132 +1,291 @@
-# NovaStack
+# NovaStack — Digital Solutions & Technology
 
-NovaStack is a full-stack digital solutions platform. Phase 1 provides the React/Vite site and 12 data-driven service pages. Phase 2 adds a Node/Express API, MongoDB persistence, cookie-based authentication, contact submissions, project enquiries, and user-specific enquiry history.
+### Build Better. Scale Smarter.
 
-## Architecture
+NovaStack is a modern, full-stack digital solutions website designed to showcase technology services, manage customer enquiries, and provide a secure administration system. It combines a responsive frontend with a backend API and MongoDB database to deliver a professional digital experience.
+
+## 📌 Table of Contents
+
+* [Overview](#-overview)
+* [Key Features](#-key-features)
+* [Services](#-services)
+* [Technology Stack](#-technology-stack)
+* [System Architecture](#-system-architecture)
+* [User Roles](#-user-roles)
+* [Security](#-security)
+* [Project Structure](#-project-structure)
+* [Getting Started](#-getting-started)
+* [Environment Configuration](#-environment-configuration)
+* [Future Enhancements](#-future-enhancements)
+
+## 🚀 Overview
+
+NovaStack represents a digital technology company offering web development, application development, UI/UX design, digital marketing, cloud solutions, AI automation, and other technology services.
+
+The platform enables visitors to explore services, create accounts, submit enquiries, and track their enquiry history. Administrators can manage enquiries, services, users, contact messages, and account settings through a protected dashboard.
+
+The project focuses on responsive design, structured backend development, database integration, authentication, and role-based access control.
+
+## ✨ Key Features
+
+* **Modern UI:** Professional, responsive interface with a navy, off-white, and blue-violet visual theme.
+* **Multiple Pages:** Dedicated Home, About, Services, and Contact pages.
+* **12 Service Pages:** Individual pages describing different digital services.
+* **User Authentication:** Registration and login functionality.
+* **My Enquiries:** View enquiries associated with the signed-in user.
+* **Contact Form:** Submit messages and service-related enquiries.
+* **Admin Dashboard:** Manage enquiries, services, users, contact messages, and account settings.
+* **Database Integration:** Store and retrieve application data using MongoDB.
+* **Protected Admin Routes:** Restrict administrative operations to authorized administrators.
+* **FAQ Copilot:** A local service and FAQ lookup widget that helps visitors find relevant information.
+* **Animations:** Smooth UI transitions and interactive elements.
+* **Dark/Light Theme:** Designed around a modern visual experience.
+
+## 🧩 Services
+
+NovaStack provides 12 service categories:
+
+1. Web Development
+2. Mobile App Development
+3. UI/UX Design
+4. Full-Stack Development
+5. Backend & API Development
+6. Digital Marketing
+7. SEO Optimization
+8. Cloud & Deployment Solutions
+9. AI & Automation Solutions
+10. Data Analytics & Visualization
+11. Website Maintenance & Optimization
+12. E-commerce Solutions
+
+Each service has a dedicated route and can be managed through the backend service-management functionality.
+
+## 🛠️ Technology Stack
+
+### Frontend
+
+* React.js
+* Vite
+* React Router
+* Custom CSS
+* Framer Motion
+* Lucide React
+
+### Backend
+
+* Node.js
+* Express.js
+* REST API architecture
+* Zod for request validation
+* JWT-based authentication using HttpOnly cookies
+
+### Database
+
+* MongoDB
+* Mongoose
+
+### Security
+
+* Helmet security headers
+* CORS allowlist
+* Rate limiting
+* Server-side request validation
+* Role-based authorization
+* Protected administrative APIs
+
+## 🏗️ System Architecture
+
+The application follows a client-server architecture.
 
 ```text
-frontend/                       React 18 + Vite application
-  src/data.js                   Initial 12-service catalogue / seed source
-  src/services/ServicesContext.jsx MongoDB-backed public service catalogue
-  src/pages/AdminPages.jsx      Protected admin console and management screens
-  src/lib/api.js                Credentialed API client
-  src/auth/AuthContext.jsx      Session restoration and auth actions
-  src/pages/AuthPages.jsx       Login, registration, protected history
-server/                         Express 5 API
-  src/config/database.js        Mongoose lifecycle
-  src/models/                   User, Enquiry, ContactMessage, Service
-  src/routes/                   Auth, public, admin, enquiry, contact, health APIs
-  src/controllers/              Persistence, dashboard and management APIs
-  src/scripts/                  Initial service seed and one-time admin bootstrap
-  src/validators/               Zod request schemas
-  tests/api.test.js             MongoDB-backed integration tests
+             User / Administrator
+                       |
+                       v
+             React Frontend (Vite)
+                       |
+                       v
+             Express REST API
+                       |
+              Authentication
+              Validation
+              Authorization
+                       |
+                       v
+               Mongoose ODM
+                       |
+                       v
+                 MongoDB
 ```
 
-The server derives its service allowlist and canonical service names from `frontend/src/data.js`; service slugs are not maintained in a second list.
+The frontend communicates with the backend API, which validates requests, applies authentication and authorization rules, and interacts with MongoDB.
 
-## Requirements
+## 👥 User Roles
 
-- Node.js 20 or newer
-- MongoDB local service or MongoDB Atlas database
+### 1. Guest
 
-## Local setup
+* Browse public pages and services.
+* Explore service details.
+* Submit enquiries and contact messages.
 
-Install both applications separately:
+### 2. Registered User
 
-```powershell
-cd frontend
+* Register and log in.
+* Submit service enquiries.
+* View personal enquiry history.
+
+### 3. Administrator
+
+* Access the protected admin dashboard.
+* Manage enquiries and their statuses.
+* Create and manage service listings.
+* Manage users and contact messages.
+* Access administrative account settings.
+
+Administrative privileges must be assigned through the authorized backend setup process, not through ordinary public registration.
+
+## 🔐 Security
+
+Security measures implemented in the application include:
+
+* HttpOnly cookies for authentication tokens.
+* Helmet for HTTP security headers.
+* CORS restrictions for approved frontend origins.
+* Rate limiting for API protection.
+* Zod-based server-side validation.
+* Role-based access control for administrative endpoints.
+* Protected API routes for sensitive operations.
+
+> Production deployments should also use HTTPS, secure environment variables, appropriate cookie settings, and regular security testing.
+
+## 📁 Project Structure
+
+The project uses separate frontend and backend applications.
+
+```text
+NovaStack/
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── ...
+│   ├── public/
+│   └── package.json
+│
+├── server/                 # Node.js backend
+│   ├── src/
+│   ├── package.json
+│   └── .env
+│
+└── README.md
+```
+
+*Note: Update this tree if your actual repository uses different folder names or file locations.*
+
+## ⚙️ Getting Started
+
+### Prerequisites
+
+Install the following before running the project:
+
+* Node.js and npm
+* MongoDB or a MongoDB connection URI
+* Git
+
+### 1. Clone the Repository
+
+```bash
+git clone YOUR_NOVASTACK_REPOSITORY_URL
+cd NovaStack
+```
+
+Replace the repository URL with your actual GitHub URL.
+
+### 2. Install Frontend Dependencies
+
+```bash
+cd client
 npm install
-Copy-Item .env.example .env
 ```
 
-```powershell
+### 3. Install Backend Dependencies
+
+Open another terminal:
+
+```bash
 cd server
 npm install
-Copy-Item .env.example .env
 ```
 
-Edit `server/.env` with a long random `JWT_SECRET` (at least 32 characters) and the exact browser origin in `FRONTEND_URL`. The example uses local MongoDB and `http://localhost:5173`. Edit `frontend/.env` so `VITE_API_BASE_URL` points to the API (default `http://localhost:5000`). Never commit `.env` files.
+### 4. Configure Environment Variables
 
-Seed the initial 12 MongoDB-backed services once (repeatable and non-destructive):
+Create the backend `.env` file and configure the required variables.
 
-```powershell
-cd server
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_uri
+JWT_SECRET=your_long_random_secret
+CLIENT_URL=http://localhost:5173
+```
+
+Use the variable names expected by your actual backend configuration. Never commit real passwords, database credentials, or authentication secrets.
+
+### 5. Initialize Services and Administrator
+
+If the backend scripts are configured as described in the project setup:
+
+```bash
 npm run seed:services
-```
-
-Set `BOOTSTRAP_ADMIN_NAME`, `BOOTSTRAP_ADMIN_EMAIL`, and a unique `BOOTSTRAP_ADMIN_PASSWORD` (at least 12 characters) in `server/.env`, then create the first administrator with:
-
-```powershell
-cd server
 npm run bootstrap:admin
 ```
 
-The bootstrap refuses to replace an existing admin account. It never runs automatically on server startup. Keep these credentials private and remove the bootstrap password from the environment after initial provisioning. For first-time registration in the UI instead, set a separate random `ADMIN_SETUP_KEY` (at least 32 characters) in `server/.env`; visit `/admin/register` and use it once. Registration closes as soon as the first admin is created. The UI registration and CLI bootstrap are alternatives, so use only one.
+Configure the required administrator environment variables before running the bootstrap command. Run these commands from the backend directory.
 
-Admin pages are available at `/admin/login`, `/admin/register` (one-time initial setup), and `/admin/dashboard`. Public user registration always creates a regular user. Admin registration is a one-time, setup-key-protected first-admin flow; after that, new admin accounts are not publicly registerable.
+### 6. Start the Backend
 
-Run the frontend and backend in separate terminals:
-
-```powershell
-cd frontend
+```bash
 npm run dev
 ```
 
-```powershell
-cd server
+### 7. Start the Frontend
+
+From the frontend directory:
+
+```bash
 npm run dev
 ```
 
-The API waits for MongoDB before opening its HTTP listener. Check readiness at `GET http://localhost:5000/api/health`. Build the frontend with `cd frontend; npm run build`. Start the API for production with `cd server; npm start`.
+Open the local frontend URL shown by Vite, typically:
 
-## API endpoints
+`http://localhost:5173`
 
-| Method             | Route                                 | Auth     | Purpose                                                                  |
-| ------------------ | ------------------------------------- | -------- | ------------------------------------------------------------------------ |
-| `GET`              | `/api/health`                         | No       | Application and database readiness                                       |
-| `POST`             | `/api/auth/register`                  | No       | Create a standard user account and session                               |
-| `POST`             | `/api/auth/login`                     | No       | Sign in and set an HttpOnly cookie                                       |
-| `GET`              | `/api/auth/me`                        | Cookie   | Restore the current user's profile                                       |
-| `POST`             | `/api/auth/logout`                    | Cookie   | Revoke existing sessions and clear cookie                                |
-| `POST`             | `/api/enquiries`                      | Optional | Persist a guest or authenticated service enquiry                         |
-| `GET`              | `/api/enquiries/mine`                 | Cookie   | List only the signed-in user's enquiries (pagination supported)          |
-| `POST`             | `/api/contact`                        | No       | Persist a contact message                                                |
-| `GET`              | `/api/services`                       | No       | List published MongoDB-backed services                                   |
-| `GET`              | `/api/services/:slug`                 | No       | View one published service                                               |
-| `GET`              | `/api/admin/dashboard`                | Admin    | Live totals, 30-day enquiry chart, service popularity and recent records |
-| `GET`              | `/api/admin/enquiries`                | Admin    | Search, filter, sort and paginate all enquiries                          |
-| `GET/PATCH/DELETE` | `/api/admin/enquiries/:id`            | Admin    | View, update status/internal notes, or delete an enquiry                 |
-| `GET/POST`         | `/api/admin/services`                 | Admin    | Search/list or create services                                           |
-| `PATCH/DELETE`     | `/api/admin/services/:id`             | Admin    | Edit/publish or delete/archive a service                                 |
-| `GET`              | `/api/admin/users`                    | Admin    | Search and paginate safe user profiles with enquiry counts               |
-| `GET`              | `/api/admin/users/:id`                | Admin    | User profile and recent enquiries                                        |
-| `PATCH`            | `/api/admin/users/:id/status`         | Admin    | Deactivate/reactivate; sessions are revoked                              |
-| `GET`              | `/api/admin/messages`                 | Admin    | Search/filter/paginate contact messages                                  |
-| `PATCH/DELETE`     | `/api/admin/messages/:id/read-status` | Admin    | Update read state (or delete by `/api/admin/messages/:id`)               |
-| `POST`             | `/api/auth/password`                  | Cookie   | Change the current account password after verifying the current password |
+The backend is configured to run on port `5000` in the example configuration above.
 
-Successful creation endpoints respond with HTTP 201 only after MongoDB confirms persistence. Errors use `{ success: false, error: { code, message, fieldErrors? } }`. Authentication uses a short-lived, HttpOnly JWT cookie; public registration cannot assign roles. Authenticated state-changing requests require the configured frontend `Origin` to reduce CSRF risk. CORS allows only the exact configured origin.
+## 🔮 Future Enhancements
 
-## Tests
+Potential improvements include:
 
-Run API integration tests against a running local MongoDB service:
+* Email notifications for enquiry updates.
+* Email verification and password recovery.
+* Enhanced analytics and reporting in the admin dashboard.
+* Improved automated testing and continuous integration.
+* Production deployment with monitoring and logging.
+* Integration with a real generative AI service for conversational assistance.
 
-```powershell
-cd server
-npm test
-```
+## 🎓 Project Purpose
 
-The suite covers registration, duplicate and malformed accounts, password hashing, session restore/logout, role assignment rejection, protected access, ownership isolation, all 12 enquiry slugs and MongoDB persistence, contact persistence, CORS/security headers, malformed JSON, persistence failures, admin 401/403 authorization, real dashboard analytics, enquiry filters/status audit, service publishing/archive behavior, safe user responses, and message read status.
+NovaStack demonstrates the practical application of frontend development, REST API design, database integration, authentication, authorization, and administrative workflows in a full-stack web application.
 
-Build the frontend separately with `cd frontend; npm run build`.
+It was developed as an academic software project to apply software engineering concepts to a realistic digital-services platform.
 
-## Security and current limitations
+## 👩‍💻 Author
 
-- Contact messages and project enquiries are stored in MongoDB; no email notification service is configured. Admins can use Reply to open their configured email application with the sender and subject filled in; NovaStack does not send the email itself.
-- Authentication is cookie based. Set `COOKIE_SAME_SITE=none` only when the deployment uses cross-site frontend/API hosts, and serve both over HTTPS so cookies remain `Secure`.
-- Admin access has no public registration route. The admin console supports Mongo-backed overview, enquiry management, service catalogue CRUD, user status controls, contact message read state, and password changes.
-- Service seed uses the original 12 entries as insert-only defaults. Rerunning it preserves admin edits, publication states, and existing records. Enquiries keep a snapshot of the service name/slug; deleting a referenced service archives it.
-- Deactivating an account revokes its current sessions. The current administrator cannot deactivate their own account; the last active administrator cannot be deactivated.
-- Email notifications, a full admin role editor, invitation flow, password reset, email verification, payments, and production deployment hardening are not included.
-- User enquiry history is protected and scoped by the verified session user ID.
-- Set a trusted `FRONTEND_URL`, strong `JWT_SECRET`, and production database before deploying. The development `.env` is local only.
+**Simran Jaiswal**
+
+B.Tech — Computer Science and Engineering (Data Science)
+
+* GitHub: [simranjaiswal801](https://github.com/simranjaiswal801)
+* LinkedIn: [Simran Jaiswal](https://www.linkedin.com/in/simran-jaiswal-948791341/)
+
+---
+
+*NovaStack — Build Better. Scale Smarter.*
